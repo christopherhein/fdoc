@@ -14,11 +14,11 @@
 
     <%= description %>
 
-    <%= tag_with_anchor('h2', 'Endpoints') %>
+    <%= tag_with_anchor('h2', 'Endpoints') unless endpoints.empty? %>
 
     <% endpoints.each do |endpoint_ary| %>
       <%= tag_with_anchor('h3', endpoint_ary.first.prefix) %>
-      <ul>
+      <ul class="linked-list endpoints">
       <% endpoint_ary.each do |endpoint| %>
         <li>
           <a href="<%= endpoint.url %>">

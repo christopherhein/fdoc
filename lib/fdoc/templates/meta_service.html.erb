@@ -8,7 +8,7 @@
 
     <%= tag_with_anchor('h2', 'Services') %>
 
-    <ul>
+    <ul class="linked-list">
       <% services.each do |serv| %>
         <li>
           <h3>
@@ -22,7 +22,7 @@
 
     <% endpoints.each do |endpoint_ary| %>
       <%= tag_with_anchor('h3', endpoint_ary.first.prefix) %>
-      <ul>
+      <ul class="linked-list endpoints">
       <% endpoint_ary.each do |endpoint| %>
         <li>
           <a href="<%= endpoint.url %>">

@@ -46,16 +46,16 @@ module Fdoc
       def convert_to_html
         in_root do
           # copy_file("styles.css")
-          create_file("index.html", meta_presenter.to_html) if has_meta_service?
+          create_file("index.html.erb", meta_presenter.to_html) if has_meta_service?
         end
 
         service_presenters.each do |service_presenter|
           inside_service_presenter(service_presenter) do
-            create_file("index.html", service_presenter.to_html)
+            create_file("index.html.erb", service_presenter.to_html)
 
             service_presenter.endpoints.each do |endpoint_prefix_group|
               endpoint_prefix_group.each do |endpoint|
-                create_file(endpoint.url, endpoint.to_html)
+                create_file("#{endpoint.url}.erb", endpoint.to_html)
               end
             end
           end
