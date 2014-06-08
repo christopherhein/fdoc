@@ -37,6 +37,8 @@ module Fdoc
     def path
       if respond_to?(:example) # Rspec 2
         example.metadata[:fdoc]
+      elsif respond_to?(:metadata)
+        metadata[:fdoc]
       else # Rspec 1.3.2
         opts = {}
         __send__(:example_group_hierarchy).each do |example|
