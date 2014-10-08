@@ -10,7 +10,19 @@ class Fdoc::Endpoint
   def initialize(endpoint_path, service=Fdoc::Service.default_service)
     @endpoint_path = endpoint_path
     @schema = YAML.load_file(@endpoint_path)
+    recursive_check_for_key(@schema)
     @service = service
+  end
+  
+  def recursive_check_for_key(hash)
+    hash.each do |key, value|
+      if value.class == Hash && value["$ref"]
+        path = hash[key].delete("$ref")
+        hash[key].merge!(YAML.load_file(Rails.root.join(Fdoc.service_path, path)))
+      elsif value.is_a? Hash
+        recursive_check_for_key(value)
+      end
+    end
   end
 
   def consume_request(params, successful=true)
